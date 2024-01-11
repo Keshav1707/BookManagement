@@ -27,6 +27,8 @@ Class User: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
 Class BookManagement.Dashboard: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(User): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean viewtoggle : Public
 Class BookManagement.Signup: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

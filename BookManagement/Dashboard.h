@@ -10,6 +10,7 @@ namespace BookManagement {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Data::SqlClient;
 
 	/// <summary>
 	/// Summary for Dashboard
@@ -21,7 +22,8 @@ namespace BookManagement {
 		{
 			InitializeComponent();
 			SetWelcomeMessage(user);
-			
+			LoadDataFromSqlServer();
+			datapnl->Hide();
 			//
 			//TODO: Add the constructor code here
 			//
@@ -62,6 +64,8 @@ namespace BookManagement {
 	private: System::Windows::Forms::PictureBox^ pictureBox3;
 	private: System::Windows::Forms::Panel^ Mainpnl;
 	private: System::Windows::Forms::Panel^ panel3;
+	private: System::Windows::Forms::Panel^ datapnl;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
 
 
 
@@ -77,6 +81,43 @@ namespace BookManagement {
 			   
 			}
 		
+			void LoadDataFromSqlServer()
+			{
+				try
+				{
+					// Set your SQL Server connection details
+					String^ connectionString = "Data Source=KESHAV-PC\\SQLEXPRESS;Initial Catalog=accounts;Integrated Security=True;TrustServerCertificate=True";
+
+					// Create a SqlConnection
+					SqlConnection^ connection = gcnew SqlConnection(connectionString);
+
+					// Create a SqlCommand to execute the SELECT query
+					String^ query = "SELECT * FROM Books";
+					SqlCommand^ command = gcnew SqlCommand(query, connection);
+
+					
+
+					// Open the connection
+					connection->Open();
+					SqlDataReader^ reader = command->ExecuteReader();
+
+					// Create a DataTable to hold the data
+					DataTable^ dataTable = gcnew DataTable();
+
+					// Load data from SqlDataReader into the DataTable
+					dataTable->Load(reader);
+
+					// Bind the DataTable to the DataGridView
+					dataGridView1->DataSource = dataTable;
+				}
+				catch (Exception^ ex)
+				{
+					// Handle exceptions (e.g., display an error message with details)
+					MessageBox::Show("Error: " + ex->Message + "\n" + ex->StackTrace, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+
+				
+			}
 
 
 	protected:
@@ -101,6 +142,7 @@ namespace BookManagement {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Dashboard::typeid));
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			this->removepnl = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
@@ -115,7 +157,8 @@ namespace BookManagement {
 			this->emailshow = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->Mainpnl = (gcnew System::Windows::Forms::Panel());
-			this->panel3 = (gcnew System::Windows::Forms::Panel());
+			this->datapnl = (gcnew System::Windows::Forms::Panel());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->panel1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
 			this->removepnl->SuspendLayout();
@@ -124,6 +167,9 @@ namespace BookManagement {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->Viewpnl->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->viewpng))->BeginInit();
+			this->Mainpnl->SuspendLayout();
+			this->datapnl->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// panel1
@@ -144,27 +190,38 @@ namespace BookManagement {
 			this->panel1->Size = System::Drawing::Size(320, 720);
 			this->panel1->TabIndex = 1;
 			// 
+			// panel3
+			// 
+			this->panel3->BackColor = System::Drawing::Color::White;
+			this->panel3->Location = System::Drawing::Point(19, 609);
+			this->panel3->Name = L"panel3";
+			this->panel3->Size = System::Drawing::Size(200, 1);
+			this->panel3->TabIndex = 0;
+			// 
 			// pictureBox3
 			// 
+			this->pictureBox3->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->pictureBox3->Cursor = System::Windows::Forms::Cursors::Arrow;
 			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
-			this->pictureBox3->Location = System::Drawing::Point(47, 12);
+			this->pictureBox3->Location = System::Drawing::Point(85, 12);
 			this->pictureBox3->Name = L"pictureBox3";
-			this->pictureBox3->Size = System::Drawing::Size(162, 137);
+			this->pictureBox3->Size = System::Drawing::Size(137, 137);
 			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
 			this->pictureBox3->TabIndex = 5;
 			this->pictureBox3->TabStop = false;
+			this->pictureBox3->Click += gcnew System::EventHandler(this, &Dashboard::pictureBox3_Click);
 			// 
 			// removepnl
 			// 
-			this->removepnl->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(46)), static_cast<System::Int32>(static_cast<System::Byte>(61)),
-				static_cast<System::Int32>(static_cast<System::Byte>(96)));
+			this->removepnl->BackColor = System::Drawing::Color::Transparent;
 			this->removepnl->Controls->Add(this->pictureBox2);
 			this->removepnl->Controls->Add(this->removelbl);
 			this->removepnl->Location = System::Drawing::Point(19, 335);
 			this->removepnl->Name = L"removepnl";
 			this->removepnl->Size = System::Drawing::Size(277, 34);
 			this->removepnl->TabIndex = 4;
+			this->removepnl->MouseEnter += gcnew System::EventHandler(this, &Dashboard::removepnl_MouseEnter);
+			this->removepnl->MouseLeave += gcnew System::EventHandler(this, &Dashboard::removepnl_MouseLeave);
 			// 
 			// pictureBox2
 			// 
@@ -198,6 +255,8 @@ namespace BookManagement {
 			this->addpnl->Name = L"addpnl";
 			this->addpnl->Size = System::Drawing::Size(277, 34);
 			this->addpnl->TabIndex = 4;
+			this->addpnl->MouseEnter += gcnew System::EventHandler(this, &Dashboard::addpnl_MouseEnter);
+			this->addpnl->MouseLeave += gcnew System::EventHandler(this, &Dashboard::addpnl_MouseLeave);
 			// 
 			// pictureBox1
 			// 
@@ -212,6 +271,7 @@ namespace BookManagement {
 			// addlbl
 			// 
 			this->addlbl->AutoSize = true;
+			this->addlbl->BackColor = System::Drawing::Color::Transparent;
 			this->addlbl->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->addlbl->Location = System::Drawing::Point(53, 6);
@@ -231,8 +291,12 @@ namespace BookManagement {
 			this->Viewpnl->Size = System::Drawing::Size(277, 34);
 			this->Viewpnl->TabIndex = 3;
 			this->Viewpnl->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Dashboard::View_Paint);
+			this->Viewpnl->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Dashboard::Viewpnl_MouseClick);
 			this->Viewpnl->MouseEnter += gcnew System::EventHandler(this, &Dashboard::View_MouseEnter);
 			this->Viewpnl->MouseLeave += gcnew System::EventHandler(this, &Dashboard::View_MouseLeave);
+			this->Viewpnl->Controls->Add(viewpng);
+			this->Viewpnl->Controls->Add(Viewlbl);
+
 			// 
 			// viewpng
 			// 
@@ -248,6 +312,7 @@ namespace BookManagement {
 			// Viewlbl
 			// 
 			this->Viewlbl->AutoSize = true;
+			this->Viewlbl->BackColor = System::Drawing::Color::Transparent;
 			this->Viewlbl->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->Viewlbl->Location = System::Drawing::Point(53, 6);
@@ -278,11 +343,11 @@ namespace BookManagement {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(22, 158);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(91, 28);
+			this->label1->Size = System::Drawing::Size(93, 28);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"welcome";
 			// 
@@ -290,19 +355,39 @@ namespace BookManagement {
 			// 
 			this->Mainpnl->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)), static_cast<System::Int32>(static_cast<System::Byte>(39)),
 				static_cast<System::Int32>(static_cast<System::Byte>(68)));
+			this->Mainpnl->Controls->Add(this->datapnl);
 			this->Mainpnl->Location = System::Drawing::Point(320, 0);
 			this->Mainpnl->Name = L"Mainpnl";
 			this->Mainpnl->Size = System::Drawing::Size(760, 720);
 			this->Mainpnl->TabIndex = 2;
 			this->Mainpnl->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Dashboard::Mainpnl_Paint);
 			// 
-			// panel3
+			// datapnl
 			// 
-			this->panel3->BackColor = System::Drawing::Color::White;
-			this->panel3->Location = System::Drawing::Point(19, 609);
-			this->panel3->Name = L"panel3";
-			this->panel3->Size = System::Drawing::Size(200, 1);
-			this->panel3->TabIndex = 0;
+			this->datapnl->BackColor = System::Drawing::Color::Navy;
+			this->datapnl->Controls->Add(this->dataGridView1);
+			this->datapnl->Location = System::Drawing::Point(19, 133);
+			this->datapnl->Name = L"datapnl";
+			this->datapnl->Size = System::Drawing::Size(729, 575);
+			this->datapnl->TabIndex = 0;
+			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
+			this->dataGridView1->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridView1->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(26)),
+				static_cast<System::Int32>(static_cast<System::Byte>(39)), static_cast<System::Int32>(static_cast<System::Byte>(68)));
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridView1->Location = System::Drawing::Point(0, 0);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->ReadOnly = true;
+			this->dataGridView1->RowHeadersWidth = 51;
+			this->dataGridView1->RowTemplate->Height = 24;
+			this->dataGridView1->Size = System::Drawing::Size(729, 575);
+			this->dataGridView1->TabIndex = 0;
+			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Dashboard::dataGridView1_CellContentClick);
 			// 
 			// Dashboard
 			// 
@@ -311,7 +396,7 @@ namespace BookManagement {
 			this->ClientSize = System::Drawing::Size(1080, 720);
 			this->Controls->Add(this->Mainpnl);
 			this->Controls->Add(this->panel1);
-			this->ForeColor = System::Drawing::Color::White;
+			this->ForeColor = System::Drawing::Color::Transparent;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"Dashboard";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -329,6 +414,9 @@ namespace BookManagement {
 			this->Viewpnl->ResumeLayout(false);
 			this->Viewpnl->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->viewpng))->EndInit();
+			this->Mainpnl->ResumeLayout(false);
+			this->datapnl->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -338,17 +426,47 @@ namespace BookManagement {
 	private: System::Void wlcmlbl_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void View_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
-		Viewpnl->BackColor = System::Drawing::Color::Black;
+		Viewpnl->BackColor = System::Drawing::Color::FromArgb(26, 39, 68);
 	}
 
 private: System::Void View_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 private: System::Void View_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
-	Viewpnl->BackColor = System::Drawing::Color::FromArgb(64,64,64);
+	Viewpnl->BackColor = System::Drawing::Color::FromArgb(46,61,96);
 }
 private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void Mainpnl_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
+private: System::Void pictureBox3_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
+	  public: bool viewtoggle = false;
+private: System::Void Viewpnl_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	if (viewtoggle == false)
+	{
+		datapnl->Show();
+		viewtoggle = true;
+	}
+	else
+	{
+		datapnl->Hide();
+		viewtoggle = false;
+	}
+}
+private: System::Void addpnl_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+	addpnl->BackColor = System::Drawing::Color::FromArgb(26, 39, 68);
+}
+private: System::Void addpnl_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
+	addpnl->BackColor = System::Drawing::Color::FromArgb(46, 61, 96);
+}
+private: System::Void removepnl_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+	removepnl->BackColor = System::Drawing::Color::FromArgb(26, 39, 68);
+}
+private: System::Void removepnl_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
+	removepnl->BackColor = System::Drawing::Color::FromArgb(46, 61, 96);
+}
+
 };
 }
