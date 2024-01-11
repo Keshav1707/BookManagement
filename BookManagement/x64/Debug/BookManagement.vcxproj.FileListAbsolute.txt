@@ -1,0 +1,5 @@
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\x64\Debug\BookManagement.vcxproj.AssemblyReference.cache
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\x64\Debug\BookManagement.MyForm.resources
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\x64\Debug\BookManagement.vcxproj.GenerateResource.cache
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\x64\Debug\BookManagement.Dashboard.resources
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\x64\Debug\BookManagement.signup.resources

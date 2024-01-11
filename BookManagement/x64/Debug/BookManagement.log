@@ -1,0 +1,17 @@
+﻿  Dashboard.cpp
+  MyForm.cpp
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\Signup.h(382,20): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'MyForm.cpp')
+  
+  Signup.cpp
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\signup.h(382,20): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Signup.cpp')
+  
+  Source.cpp
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\Signup.h(382,20): warning C4101: 'e': unreferenced local variable
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Keshav Diwakar\source\repos\BookManagement\BookManagement\Source.cpp(11,1): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  Generating Code...
+  Dashboard.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  BookManagement.vcxproj -> C:\Users\Keshav Diwakar\source\repos\BookManagement\x64\Debug\BookManagement.exe
