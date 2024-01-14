@@ -145,12 +145,13 @@ namespace BookManagement {
 			this->textBox1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(27)), static_cast<System::Int32>(static_cast<System::Byte>(41)),
 				static_cast<System::Int32>(static_cast<System::Byte>(86)));
 			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.8F));
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->textBox1->ForeColor = System::Drawing::Color::White;
-			this->textBox1->Location = System::Drawing::Point(0, 10);
+			this->textBox1->Location = System::Drawing::Point(10, 11);
 			this->textBox1->Margin = System::Windows::Forms::Padding(0);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(352, 25);
+			this->textBox1->Size = System::Drawing::Size(323, 23);
 			this->textBox1->TabIndex = 5;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
@@ -159,13 +160,14 @@ namespace BookManagement {
 			this->textBox2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(27)), static_cast<System::Int32>(static_cast<System::Byte>(41)),
 				static_cast<System::Int32>(static_cast<System::Byte>(86)));
 			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12.8F));
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->textBox2->ForeColor = System::Drawing::Color::White;
-			this->textBox2->Location = System::Drawing::Point(0, 13);
+			this->textBox2->Location = System::Drawing::Point(19, 13);
 			this->textBox2->Margin = System::Windows::Forms::Padding(0);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->PasswordChar = '*';
-			this->textBox2->Size = System::Drawing::Size(352, 25);
+			this->textBox2->Size = System::Drawing::Size(314, 23);
 			this->textBox2->TabIndex = 6;
 			this->textBox2->UseSystemPasswordChar = true;
 			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox2_TextChanged);

@@ -31,6 +31,7 @@ Class BookManagement.Dashboard: AutoLayout, AnsiClass, Class, Public, BeforeFiel
     System.Data.DataTable dataTable : Public
     Boolean viewtoggle : Public
     Boolean searchtoggle : Public
+    Boolean addtoggle : Public
 Class BookManagement.Signup: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
